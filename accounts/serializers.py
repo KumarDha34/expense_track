@@ -26,28 +26,3 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
-
-class ProfileSerializer(serializers.ModelSerializer):
-    total_expenses = serializers.SerializerMethodField()
-    remaining_balance = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = [
-            'full_name',
-            'email',
-            'address',
-            'age',
-            'monthly_income',
-            'total_expenses',
-            'remaining_balance'
-        ]
-
-    def get_total_expenses(self, user):
-        total = Expense.objects.filter(user=user).aggregate(
-            total=Sum("expense_amount")
-        )["total"]
-        return total or 0
-
-    def get_remaining_balance(self, user):
-        return user.monthly_income - self.get_total_expenses(user)
