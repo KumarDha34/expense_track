@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third party
     'rest_framework',
-    # local
+    'drf_yasg',
+    'restframework.authtoken',
+            # local
     'accounts',
+    'expenses'
+
 ]
 
-
+AUTH_USER_MODEL='accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,7 +86,7 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME","expensetrack"),
+        'NAME': os.getenv("DB_NAME","expense"),
         "USER":os.getenv("DB_USER","postgres"),
         "PASSWORD":os.getenv("DB_PASS","kumar"),
         "HOST":os.getenv("DB_HOST","localhost"),
